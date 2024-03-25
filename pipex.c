@@ -6,7 +6,17 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:52 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/03/21 23:37:02 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:17:56 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "pipex.h"
+
+int main (int ac, char **av)
+{
+	if (ac > 1 && av[1] != NULL)
+		write(1, "ok\n", 3);
+	else
+		return(1);
+	return (0);
+}

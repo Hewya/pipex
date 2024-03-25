@@ -4,11 +4,11 @@ NAME		= pipex
 BNAME		= bonus_pipex
 
 SRCS		=	pipex	\
-				error	\
+				errors	\
 				parsing	\
 
 SRCS_BONUS	=	pipex_bonus	\
-				error		\
+				errors		\
 				parsing		\
 
 INCS		= -I libft
@@ -22,13 +22,13 @@ OBJ_B		= $(addsuffix .o, $(SRCS_BONUS))
 all: $(NAME)
 
 $(NAME) : $(OBJ)
-	$(MAKE) -C libft/ bonus
+	$(MAKE) -C libft
 	$(CC) $(CFLAGS) -o $@ $(OBJ) libft/libft.a
 
 bonus: $(BNAME)
 
 $(BNAME) : $(OBJ_B)
-	$(MAKE) -C libft/ bonus
+	$(MAKE) -C libft
 	$(CC) $(CFLAGS) -o $@ $(OBJ_B) libft/libft.a
 
 %.o: %.c
