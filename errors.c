@@ -6,8 +6,23 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:54:22 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/03/25 11:17:47 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:35:54 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if(!tab)
+		return;
+	while(tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
