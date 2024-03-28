@@ -6,17 +6,36 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:52 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/03/25 11:17:56 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/03/28 01:04:14 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int main (int ac, char **av)
+void	ft_pipex(t_pipex *pipex)
 {
-	if (ac > 1 && av[1] != NULL)
-		write(1, "ok\n", 3);
+	
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	t_pipex pipex;
+
+	pipex.envp = envp;
+	pipex.paths = path_extraction(envp);
+	pipex.nb_cmds = ac - 3;
+	pipex.cmds = av;
+	pipex.infile = av[1];
+	pipex.infile_fd = -1; //DOCU LE -1
+	pipex.outfile = av[ac -1];
+	pipex.outfile_fd = -1;
+	if(ac == 5)
+		ft_pipex(&pipex);
 	else
-		return(1);
-	return (0);
+		ft_printf("pipex : input error -> ./pipex infile cmd 1 cmd 2 outfile\n"); //AJOUTER FT_PRINFT A LA LIBFT
+	free_tab(pipex.paths);
+	/*
+	GERER LES EXITS ERROR 
+	*/
+	return(0); //A CHANGER
 }
