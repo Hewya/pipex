@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:52 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/03/28 01:04:14 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/03/28 01:07:26 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **envp)
 		ft_printf("pipex : input error -> ./pipex infile cmd 1 cmd 2 outfile\n"); //AJOUTER FT_PRINFT A LA LIBFT
 	free_tab(pipex.paths);
 	/*
-	GERER LES EXITS ERROR 
+	GERER LES EXIT_ERROR 
 	*/
 	return(0); //A CHANGER
 }
