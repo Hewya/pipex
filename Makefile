@@ -5,11 +5,12 @@ BNAME		= bonus_pipex
 
 SRCS		=	pipex	\
 				errors	\
-				parsing	\
+				utils	\
 
 SRCS_BONUS	=	pipex_bonus	\
 				errors		\
-				parsing		\
+				utils		\
+
 
 INCS		= -I libft
 		

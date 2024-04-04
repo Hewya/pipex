@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/04 12:24:53 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:31:45 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_execve(t_pipex *pipex);
 
 /* ERRORS */
 void	free_tab(char **tab);
-void	ft_command_fail(t_pipex *pipex);
+void	command_fail(t_pipex *pipex);
 void	parse_fail(t_pipex *pipex);
 
 /* PIPEX */
