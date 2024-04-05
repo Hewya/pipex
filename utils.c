@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:02:05 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/03/27 10:20:29 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:00:05 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,17 @@ char **path_extraction(char **envp)
 					exit(EXIT_FAILURE);
 		}
 		i++;
+	}
+	if(!paths)
+	{
+		paths = ft_split(". ", ' ');
 		if(!paths)
-		{
-			paths = ft_split(". ", ' ');
-			if(!paths)
-				perror("pipex failed to extract paths for envp\n"),
-					exit(EXIT_FAILURE);
-		}
+			perror("pipex failed to extract paths for envp\n"),
+				exit(EXIT_FAILURE);
 	}
 	return(paths);
 }
+
 char	*ft_strjoin_triple(char const *s1, char const *s2, char const *s3)
 {
 	char	*result;
@@ -70,11 +71,11 @@ void	ft_execve(t_pipex *pipex)
 	{
 		if (pipex->child_args[0][0] == '.' || pipex->child_args[0][0] == '/')
 			execve(pipex->child_args[0], pipex->child_args, pipex->envp);
-		cmd_path = ft_strjoin3(pipex->paths[i], "/", pipex->child_args[0]);
+		cmd_path = ft_strjoin_triple(pipex->paths[i], "/", pipex->child_args[0]);
 		if (!cmd_path)
 		{
 			perror("failed to build cmd_path");
-			ft_freetable(pipex->paths);
+			free_tab(pipex->paths);
 			exit(EXIT_FAILURE);
 		}
 		execve(cmd_path, pipex->child_args, pipex->envp);

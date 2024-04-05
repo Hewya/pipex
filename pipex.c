@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:52 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/04 15:49:51 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/05 11:23:18 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	last_cmd(t_pipex *pipex)
 	pipex->outfile_fd = open(pipex->outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if(pipex->outfile_fd == -1)
 	{
-		perror("cannot oen output file");
+		perror("cannot open output file");
 		free_tab(pipex->child_args);
 		free_tab(pipex->paths);
 		exit(EXIT_FAILURE);
@@ -54,20 +54,17 @@ void	forkchild(t_pipex *pipex, int i)
 	}
 	if(pipex->pid == 0) // processus fils
 	{
-		pipex->child_args = ft_split(pipex->cmds[pipex->nb_cmds /* + 1 -i*/], ' '); // HERE
+		pipex->child_args = ft_split(pipex->cmds[pipex->nb_cmds + 1 -i], ' ');
 		if(!pipex->child_args)
-		{
-			write(STDERR_FILENO, "pipex : cmd parsing failed", 26);
-			free_tab(pipex->paths);
-			exit(EXIT_FAILURE);
-		}
+			parse_fail(pipex);
 		else if (!pipex->child_args[0])
 			command_fail(pipex);
 		if (i == 0)
 			last_cmd(pipex);
 		else if (i == 1)
-			first_cmd;
+			first_cmd(pipex);
 		ft_execve(pipex);
+		command_fail(pipex);
 	}
 }
 
@@ -115,30 +112,9 @@ int	main(int ac, char **av, char **envp)
 	if(ac == 5)
 		ft_pipex(&pipex);
 	else
-		ft_printf("pipex : input error -> ./pipex infile cmd 1 cmd 2 outfile\n"); //AJOUTER FT_PRINFT A LA LIBFT
+		ft_printf("pipex : input error -> ./pipex infile cmd1 cmd2 outfile\n");
 	free_tab(pipex.paths);
 	if(pipex.exit_code >= 256)
 		pipex.exit_code = 127; //command not found
 	return(pipex.exit_code);
 }
-/*void	ft_fork()
-{
-	pid_t pid = fork();
-	if (pid == -1)
-	{
-		// Il y a une erreur
-		perror("fork");
-		return (EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		// On est dans le fils
-		printf("Mon PID est %i et celui de mon père est %i\n", getpid(),	getppid());
-	}
-	else
-	{
-		// On est dans le père
-		printf("Mon PID est %i et celui de mon fils est %i\n", getpid(), pid);
-	}
-	return (EXIT_SUCCESS);
-}*/

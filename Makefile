@@ -1,5 +1,5 @@
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -g
 NAME		= pipex
 BNAME		= bonus_pipex
 
