@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/05 17:53:23 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:24:27 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ typedef struct s_pipex
 	int		pipe_fd[2];		// pipes fd : [0] = read, [1] = write
 	int		pid;			// id du fork actuel
 	int		pid_last;		// id de la 1er commande a retourner
-	int		exit_code;		// 
-
-
+	int		exit_code;		// valeur retour general
 }			t_pipex;
 
 /* UTILS */
@@ -50,7 +48,6 @@ void	send_error_msg(char *str);
 void	free_tab(char **tab);
 void	command_fail(t_pipex *pipex);
 void	parse_fail(t_pipex *pipex);
-
 
 /* PIPEX */
 int		main(int ac, char **av, char **envp);

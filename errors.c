@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:54:22 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/05 17:53:00 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:46:06 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
-	if(!tab)
-		return;
-	while(tab[i])
+	if (!tab)
+		return ;
+	while (tab[i])
 	{
 		free(tab[i]);
 		i++;
@@ -29,10 +29,11 @@ void	free_tab(char **tab)
 
 void	command_fail(t_pipex *pipex)
 {
-	char *msg;
+	char	*msg;
 
-	msg = ft_strjoin_triple("pipex : command not found -> ", pipex->child_args[0], "\n");
-	if(!msg)
+	msg = ft_strjoin_triple("pipex : command not found -> ",
+			pipex->child_args[0], "\n");
+	if (!msg)
 		send_error_msg("pipex : command not found\n");
 	else
 	{
@@ -56,4 +57,3 @@ void	parse_fail(t_pipex *pipex)
 	free_tab(pipex->paths);
 	exit(EXIT_FAILURE);
 }
-

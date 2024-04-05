@@ -6,38 +6,30 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:02:05 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/05 17:52:26 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:42:55 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char **path_extraction(char **envp)
+char	**path_extraction(char **envp)
 {
 	char	**paths;
 	int		i;
 
 	paths = NULL;
 	i = 0;
-	while(envp[i])
+	while (envp[i])
 	{
 		if (ft_strncmp("PATH=", envp[i], 5) == 0)
 		{
 			paths = ft_split(envp[i] + 5, ':');
-			if(!paths)
-				send_error_msg("pipex failed to extract paths for envp\n"),
-					exit(EXIT_FAILURE);
 		}
 		i++;
 	}
-	if(!paths)
-	{
+	if (!paths)
 		paths = ft_split(". ", ' ');
-		if(!paths)
-			send_error_msg("pipex failed to extract paths for envp\n"),
-				exit(EXIT_FAILURE);
-	}
-	return(paths);
+	return (paths);
 }
 
 char	*ft_strjoin_triple(char const *s1, char const *s2, char const *s3)
@@ -60,6 +52,7 @@ char	*ft_strjoin_triple(char const *s1, char const *s2, char const *s3)
 	ft_strlcat(result, s3, s1_len + s2_len + s3_len + 1);
 	return (result);
 }
+
 void	ft_execve(t_pipex *pipex)
 {
 	char	*cmd_path;
@@ -71,7 +64,8 @@ void	ft_execve(t_pipex *pipex)
 	{
 		if (pipex->child_args[0][0] == '.' || pipex->child_args[0][0] == '/')
 			execve(pipex->child_args[0], pipex->child_args, pipex->envp);
-		cmd_path = ft_strjoin_triple(pipex->paths[i], "/", pipex->child_args[0]);
+		cmd_path = ft_strjoin_triple(pipex->paths[i],
+				"/", pipex->child_args[0]);
 		if (!cmd_path)
 		{
 			send_error_msg("failed to build cmd_path\n");
@@ -83,12 +77,13 @@ void	ft_execve(t_pipex *pipex)
 		free(cmd_path);
 	}
 }
+
 void	send_error_msg(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
 		write(STDERR_FILENO, &str[i], 1);
 		i++;
