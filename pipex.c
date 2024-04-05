@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:52 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/05 15:41:46 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:52:50 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,22 @@ void	last_cmd(t_pipex *pipex)
 	pipex->outfile_fd = open(pipex->outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if(pipex->outfile_fd == -1)
 	{
-		perror("cannot open output file");
+		send_error_msg("cannot open output file\n");
 		free_tab(pipex->child_args);
 		free_tab(pipex->paths);
 		exit(EXIT_FAILURE);
 	}
 	dup2(pipex->outfile_fd, STDOUT_FILENO);
-	close(pipex->outfile_fd);
 }
 void	first_cmd(t_pipex *pipex)
 {
-	write(STDERR_FILENO, "here\n", 5);
 	close(pipex->pipe_fd[0]);
 	dup2(pipex->pipe_fd[1], STDOUT_FILENO);
 	close(pipex->pipe_fd[1]);
 	pipex->infile_fd = open(pipex->infile, O_RDONLY);
 	if(pipex->infile_fd == -1)
 	{
-		perror("cannot open input file");
+		send_error_msg("cannot open input file\n");
 		free_tab(pipex->child_args);
 		free_tab(pipex->paths);
 		exit(EXIT_FAILURE);
@@ -50,7 +48,7 @@ void	forkchild(t_pipex *pipex, int i)
 	pipex->pid = fork();
 	if(pipex->pid == -1)
 	{
-		perror("fork failed");
+		send_error_msg("fork failed\n");
 		free_tab(pipex->paths);
 		exit(EXIT_FAILURE);
 	}
@@ -77,7 +75,7 @@ void	ft_pipex(t_pipex *pipex)
 	i = 0;
 	if(pipe(pipex->pipe_fd) == -1)
 	{
-		perror("pipe failed");
+		send_error_msg("pipe failed\n");
 		free_tab(pipex->paths);
 		exit(EXIT_FAILURE);
 	}

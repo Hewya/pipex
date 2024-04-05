@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:54:22 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/05 15:47:45 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:53:00 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	command_fail(t_pipex *pipex)
 
 	msg = ft_strjoin_triple("pipex : command not found -> ", pipex->child_args[0], "\n");
 	if(!msg)
-		write(STDERR_FILENO, "pipex : command not found\n", 26);
+		send_error_msg("pipex : command not found\n");
 	else
 	{
 		write(STDERR_FILENO, msg, ft_strlen(msg));
@@ -52,7 +52,7 @@ void	command_fail(t_pipex *pipex)
 
 void	parse_fail(t_pipex *pipex)
 {
-	write(STDERR_FILENO, "pipex : parsing failure\n", 24);
+	send_error_msg("pipex : parsing failure\n");
 	free_tab(pipex->paths);
 	exit(EXIT_FAILURE);
 }

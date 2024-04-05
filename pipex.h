@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/05 14:48:20 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:53:23 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ typedef struct s_pipex
 char	**path_extraction(char **envp);
 char	*ft_strjoin_triple(char const *s1, char const *s2, char const *s3);
 void	ft_execve(t_pipex *pipex);
-void	close_all(t_pipex *pipex);
+void	send_error_msg(char *str);
 
 /* ERRORS */
 void	free_tab(char **tab);
 void	command_fail(t_pipex *pipex);
 void	parse_fail(t_pipex *pipex);
+
 
 /* PIPEX */
 int		main(int ac, char **av, char **envp);
