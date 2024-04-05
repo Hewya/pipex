@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:54:22 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/05 13:45:24 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:47:45 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	command_fail(t_pipex *pipex)
 		close(pipex->outfile_fd);
 	if (pipex->infile_fd != -1)
 		close(pipex->infile_fd);
+	close(pipex->pipe_fd[0]);
+	close(pipex->pipe_fd[1]);
 	exit(EXIT_FAILURE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:02:05 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/05 14:00:05 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:03:10 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,12 @@ void	ft_execve(t_pipex *pipex)
 		i++;
 		free(cmd_path);
 	}
+}
+void	close_all(t_pipex *pipex)
+{
+	close(pipex->infile_fd);
+	close(pipex->outfile_fd);
+	close(pipex->pipe_fd[1]);
+	close(pipex->pipe_fd[0]);
+
 }
