@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:59:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/09 16:33:57 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/09 20:57:55 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,38 @@ void	ft_pipex_bonus(t_pipex *pipex)
 		wait_parent(pipex);
 		// close something maybe ??
 }
+
 void	ft_heredoc(t_pipex *pipex)
 {
-	
+	char *buf;
+
+	buf = NULL;
+	pipex->heredoc = 1;
+	pipex->nb_cmds -= 1;
+	pipex->infile_fd = open("/tmp/temp", O_RDWR | O_TRUNC | O_CREAT, 0644);
+	if (pipex->infile_fd == -1)
+		input_fail(pipex);
+	while(1)
+	{
+		write(STDERR_FILENO, "> ", 2);
+		buf = get_next_line(STDIN_FILENO);
+		if(!buf)
+			heredoc_error(pipex);
+	/* peut etre passer ca en fonction de parsing pour faire plus propre*/
+		if ((ft_strncmp("", pipex->cmds[2], ft_strlen(pipex->cmds[2]))== 0)
+			&& ((ft_strncmp("\n", buf, ft_strlen(buf))) == 0))
+			break;
+		if (ft_strncmp(buf, '\n', 1) != 0)
+			if (ft_strncmp(buf, pipex->cmds[2], (ft_strlen(buf) - 1)) == 0)
+				break;
+		write(pipex->infile_fd, buf, ft_strlen(buf));
+		free(buf);
+	}
+	free(buf);
+	close(pipex->infile_fd);
 }
 
-void pipex_init(int ac, char **av, char **envp, t_pipex *pipex)
+void	pipex_init(int ac, char **av, char **envp, t_pipex *pipex)
 {
 	pipex->envp = envp;
 	pipex->paths = path_extraction(envp);
@@ -65,9 +91,9 @@ int	main(int ac, char **av, char **envp)
 	t_pipex	pipex;
 
 	pipex_init(&pipex, ac, av, envp);
-	if (ac >= 5 && /* presence heredoc*/)
-		ft_heredoc(&pipex); // gestion heredoc
-	if (/* declanchement bonus */)
+	if (ac >= 5 && ft_strncmp(av[1], "here_doc", 8) == 0)
+		ft_heredoc(&pipex);
+	if (ac >= 5 || (av >= 5 && pipex.heredoc == 1))
 		ft_pipex_bonus(&pipex);
 	if(pipex.heredoc == 0)
 	{

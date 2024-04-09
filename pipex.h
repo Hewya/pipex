@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/08 15:00:29 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/09 20:58:29 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <sys/wait.h>
 # include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
 
 typedef struct s_pipex
 {
@@ -50,6 +51,8 @@ void	send_error_msg(char *str);
 void	free_tab(char **tab);
 void	command_fail(t_pipex *pipex);
 void	parse_fail(t_pipex *pipex);
+void	input_fail(t_pipex *pipex);
+void	heredoc_error(t_pipex *pipex);
 
 /* PIPEX */
 int		main(int ac, char **av, char **envp);
@@ -58,12 +61,16 @@ void	forkchild(t_pipex *pipex, int i);
 void	first_cmd(t_pipex *pipex);
 void	last_cmd(t_pipex *pipex);
 
-/* BONUS */
+/* BONUS_CMDS*/
 void	last_cmd_bonus(t_pipex *pipex);
 void	first_cmd_bonus(t_pipex *pipex);
 void	middle_cmd_bonus(t_pipex *pipex);
 void	forkchild_bonus(t_pipex *pipex, int i);
+
+/* BONUS_EXEC */
 void	ft_pipex_bonus(t_pipex *pipex);
+void	ft_heredoc(t_pipex *pipex);
+void	pipex_init(int ac, char **av, char **envp, t_pipex *pipex);
 int		main(int ac, char **av, char **envp);
 
 #endif

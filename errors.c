@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:54:22 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/05 18:46:06 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/09 20:23:07 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,14 @@ void	parse_fail(t_pipex *pipex)
 	send_error_msg("pipex : parsing failure\n");
 	free_tab(pipex->paths);
 	exit(EXIT_FAILURE);
+}
+
+void	input_fail(t_pipex *pipex)
+{
+
+}
+
+void	heredoc_error(t_pipex *pipex)
+{
+
 }
