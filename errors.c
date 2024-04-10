@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:54:22 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/09 20:23:07 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:32:34 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,7 @@ void	free_tab(char **tab)
 
 void	command_fail(t_pipex *pipex)
 {
-	char	*msg;
-
-	msg = ft_strjoin_triple("pipex : command not found -> ",
-			pipex->child_args[0], "\n");
-	if (!msg)
-		send_error_msg("pipex : command not found\n");
-	else
-	{
-		write(STDERR_FILENO, msg, ft_strlen(msg));
-		free(msg);
-	}
+	send_error_msg("pipex : command not found\n");
 	free_tab(pipex->child_args);
 	free_tab(pipex->paths);
 	if (pipex->outfile_fd != -1)
@@ -60,10 +50,14 @@ void	parse_fail(t_pipex *pipex)
 
 void	input_fail(t_pipex *pipex)
 {
-
+	send_error_msg("input file -> failed to create");
+	free(pipex->paths);
+	exit(EXIT_FAILURE);
 }
 
 void	heredoc_error(t_pipex *pipex)
 {
-
+	send_error_msg("pipex : here_doc need a delimiter\n");
+	free(pipex->paths);
+	exit(EXIT_FAILURE);
 }

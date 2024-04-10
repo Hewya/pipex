@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:54:15 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/09 14:05:11 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:07:01 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	last_cmd_bonus(t_pipex *pipex)
 	close(pipex->pipe_fd[1]);
 	dup2(pipex->pipe_fd[0], STDIN_FILENO);
 	close(pipex->pipe_fd[0]);
-	if(pipex->heredoc == 1)
+	if(pipex->here_doc == 1)
 		pipex->outfile_fd = open(pipex->outfile, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	else
 		pipex->outfile_fd = open(pipex->outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
@@ -36,7 +36,7 @@ void	first_cmd_bonus(t_pipex *pipex)
 	close(pipex->pipe_fd[0]);
 	dup2(pipex->pipe_fd[1], STDOUT_FILENO);
 	close(pipex->pipe_fd[1]);
-	if(pipex->heredoc == 1)
+	if(pipex->here_doc == 1)
 		pipex->infile_fd = open("/tmp/temp", O_RDONLY);
 	else
 		pipex->infile_fd = open(pipex->infile, O_RDONLY);
@@ -71,16 +71,16 @@ void	forkchild_bonus(t_pipex *pipex, int i)
 	}
 	if (pipex->pid == 0)
 	{
-		pipex->child_args = ft_split(pipex->cmds[pipex->nb_cmds + 1 - /*pipex->heredoc*/ i], ' ');
+		pipex->child_args = ft_split(pipex->cmds[pipex->nb_cmds + 1 - pipex->here_doc - i], ' ');
 		if (!pipex->child_args)
 			parse_fail(pipex);
 		else if (!pipex->child_args[0])
 			command_fail(pipex);
 		if (i == 0)
 			last_cmd_bonus(pipex);
-		else if (i == pipex->cmds /* - 1*/ )
+		else if (i == (pipex->nb_cmds - 1))
 			first_cmd_bonus(pipex);
-		else if (i > 0  && i < pipex->cmds /* - 1 */ )
+		else if (i > 0  && i < (pipex->nb_cmds - 1))
 			middle_cmd_bonus(pipex);
 		ft_execve(pipex);
 		command_fail(pipex);

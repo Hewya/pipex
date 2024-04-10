@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/09 20:58:29 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:05:37 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <string.h>
 # include <sys/wait.h>
 # include "libft/libft.h"
-# include "get_next_line/get_next_line.h"
 
 typedef struct s_pipex
 {
@@ -37,7 +36,7 @@ typedef struct s_pipex
 	int		pid;			// id du fork actuel
 	int		pid_last;		// id de la 1er commande a retourner
 	int		exit_code;		// valeur retour general
-	int		heredoc;		// flag de presence d'un heredoc
+	int		here_doc;		// flag de presence d'un heredoc
 	int		tmp_outfd;		// stock fd[1] entre fork
 }			t_pipex;
 
@@ -66,6 +65,7 @@ void	last_cmd_bonus(t_pipex *pipex);
 void	first_cmd_bonus(t_pipex *pipex);
 void	middle_cmd_bonus(t_pipex *pipex);
 void	forkchild_bonus(t_pipex *pipex, int i);
+void	wait_parent(t_pipex *pipex);
 
 /* BONUS_EXEC */
 void	ft_pipex_bonus(t_pipex *pipex);
