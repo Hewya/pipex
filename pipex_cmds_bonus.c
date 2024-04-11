@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:54:15 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/10 19:07:01 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:43:38 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ void	last_cmd_bonus(t_pipex *pipex)
 	close(pipex->pipe_fd[1]);
 	dup2(pipex->pipe_fd[0], STDIN_FILENO);
 	close(pipex->pipe_fd[0]);
-	if(pipex->here_doc == 1)
-		pipex->outfile_fd = open(pipex->outfile, O_WRONLY | O_APPEND | O_CREAT, 0644);
+	if (pipex->here_doc == 1)
+		pipex->outfile_fd = open(pipex->outfile,
+				O_WRONLY | O_APPEND | O_CREAT, 0644);
 	else
-		pipex->outfile_fd = open(pipex->outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		pipex->outfile_fd = open(pipex->outfile,
+				O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (pipex->outfile_fd == -1)
 	{
 		send_error_msg("cannot open output file\n");
@@ -34,9 +36,9 @@ void	last_cmd_bonus(t_pipex *pipex)
 void	first_cmd_bonus(t_pipex *pipex)
 {
 	close(pipex->pipe_fd[0]);
-	dup2(pipex->pipe_fd[1], STDOUT_FILENO);
-	close(pipex->pipe_fd[1]);
-	if(pipex->here_doc == 1)
+	dup2(pipex->tmp_outfd, STDOUT_FILENO);
+	close(pipex->tmp_outfd);
+	if (pipex->here_doc == 1)
 		pipex->infile_fd = open("/tmp/temp", O_RDONLY);
 	else
 		pipex->infile_fd = open(pipex->infile, O_RDONLY);
@@ -57,21 +59,17 @@ void	middle_cmd_bonus(t_pipex *pipex)
 	close(pipex->tmp_outfd);
 	dup2(pipex->pipe_fd[0], STDIN_FILENO);
 	close(pipex->pipe_fd[0]);
-
 }
 
 void	forkchild_bonus(t_pipex *pipex, int i)
 {
 	pipex->pid = fork();
 	if (pipex->pid == -1)
-	{
-		send_error_msg("fork failed\n");
-		free_tab(pipex->paths);
-		exit(EXIT_FAILURE);
-	}
+		(ft_printf("fork failed"), free_tab(pipex->paths), exit(EXIT_FAILURE));
 	if (pipex->pid == 0)
 	{
-		pipex->child_args = ft_split(pipex->cmds[pipex->nb_cmds + 1 - pipex->here_doc - i], ' ');
+		pipex->child_args = ft_split
+			(pipex->cmds[pipex->nb_cmds + 1 + pipex->here_doc - i], ' ');
 		if (!pipex->child_args)
 			parse_fail(pipex);
 		else if (!pipex->child_args[0])
@@ -80,22 +78,21 @@ void	forkchild_bonus(t_pipex *pipex, int i)
 			last_cmd_bonus(pipex);
 		else if (i == (pipex->nb_cmds - 1))
 			first_cmd_bonus(pipex);
-		else if (i > 0  && i < (pipex->nb_cmds - 1))
+		else if (i > 0 && i < (pipex->nb_cmds - 1))
 			middle_cmd_bonus(pipex);
 		ft_execve(pipex);
 		command_fail(pipex);
 	}
 	if (pipex->pid != 0)
-	{
-		if(pipex->tmp_outfd != -1)
+		if (pipex->tmp_outfd != -1)
 			close(pipex->tmp_outfd);
+	if (pipex->pid != 0)
 		pipex->tmp_outfd = pipex->pipe_fd[1];
-	}
 }
 
 void	wait_parent(t_pipex *pipex)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	waitpid(pipex->pid_last, &pipex->exit_code, 0);

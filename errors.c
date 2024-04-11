@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:54:22 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/10 19:32:34 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:44:17 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	input_fail(t_pipex *pipex)
 void	heredoc_error(t_pipex *pipex)
 {
 	send_error_msg("pipex : here_doc need a delimiter\n");
+	send_error_msg("./bonus_pipex here_doc LIMITER cmd1 ... cmdn outfile\n");
 	free(pipex->paths);
 	exit(EXIT_FAILURE);
 }
