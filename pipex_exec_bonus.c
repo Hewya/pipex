@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:59:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/11 18:32:51 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:25:23 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ void	ft_heredoc(t_pipex *pipex)
 		if ((ft_strncmp("", pipex->cmds[2], ft_strlen(pipex->cmds[2])) == 0)
 			&& ((ft_strncmp("\n", buf, ft_strlen(buf))) == 0))
 			break ;
+		printf("%s\n", buf);
 		if (ft_strncmp(buf, "\n", 1) != 0)
-			if (ft_strncmp(buf, pipex->cmds[2], (ft_strlen(buf) - 1)) == 0)
+			if (is_limiter(buf, pipex->cmds[2]) == 0)
 				break ;
 		write(pipex->infile_fd, buf, ft_strlen(buf));
 		free(buf);

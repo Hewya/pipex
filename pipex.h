@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/10 19:05:37 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:25:43 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	**path_extraction(char **envp);
 char	*ft_strjoin_triple(char const *s1, char const *s2, char const *s3);
 void	ft_execve(t_pipex *pipex);
 void	send_error_msg(char *str);
+int		is_limiter(const char *u1, t_pipex *pipex);
 
 /* ERRORS */
 void	free_tab(char **tab);
