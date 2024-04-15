@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:02:05 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/12 18:37:27 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:17:45 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,36 +88,4 @@ void	send_error_msg(char *str)
 		write(STDERR_FILENO, &str[i], 1);
 		i++;
 	}
-}
-
-int	is_limiter(const char *s1,const char *s2)
-{
-	/*
-	
-	Pour trouver le delimiteur, mettre le \0 a \n pour comparer et trouver la string
-	parametres = buff de gnl et cmds[2] de pipex
-	questions = comment faire pour scanner chaque ligne
-		reponses potentiels = integrer la verification a la boucle
-	
-	*/
-	int i;
-	unsigned char *u1;
-	unsigned char *u2;
-
-	i = ft_strlen(s2);
-	u2 = s2;
-	u2[i] = '\n';
-
-	while (s1 || s2)
-	{
-		u1 = (unsigned char) s1;
-		u2 = (unsigned char) s2;
-		if (u1 != u2 || u1 == '\0' || u2 == '\0')
-		{
-			return ((int)(u1 - u2));
-		}
-		s1++;
-		s2++;
-	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/12 18:25:43 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:03:36 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <stdbool.h>
 # include "libft/libft.h"
 
 typedef struct s_pipex
@@ -45,7 +46,6 @@ char	**path_extraction(char **envp);
 char	*ft_strjoin_triple(char const *s1, char const *s2, char const *s3);
 void	ft_execve(t_pipex *pipex);
 void	send_error_msg(char *str);
-int		is_limiter(const char *u1, t_pipex *pipex);
 
 /* ERRORS */
 void	free_tab(char **tab);
@@ -70,8 +70,12 @@ void	wait_parent(t_pipex *pipex);
 
 /* BONUS_EXEC */
 void	ft_pipex_bonus(t_pipex *pipex);
-void	ft_heredoc(t_pipex *pipex);
 void	pipex_init(int ac, char **av, char **envp, t_pipex *pipex);
 int		main(int ac, char **av, char **envp);
+
+/* PIPEX_HEREDOC */
+bool	is_limiter(const char *buf, const char *delimiter);
+void	heredoc_init(t_pipex *pipex);
+void	ft_heredoc(t_pipex *pipex);
 
 #endif

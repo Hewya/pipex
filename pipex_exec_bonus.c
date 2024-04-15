@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:59:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/12 18:25:23 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:17:41 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,36 +37,6 @@ void	ft_pipex_bonus(t_pipex *pipex)
 	}
 	if (pipex->pid != 0)
 		wait_parent(pipex);
-}
-
-void	ft_heredoc(t_pipex *pipex)
-{
-	char	*buf;
-
-	buf = NULL;
-	pipex->here_doc = 1;
-	pipex->nb_cmds -= 1;
-	pipex->infile_fd = open("/tmp/temp", O_RDWR | O_TRUNC | O_CREAT, 0644);
-	if (pipex->infile_fd == -1)
-		input_fail(pipex);
-	while (1)
-	{
-		write(STDERR_FILENO, ">> ", 3);
-		buf = get_next_line(STDIN_FILENO);
-		if (!buf)
-			heredoc_error(pipex);
-		if ((ft_strncmp("", pipex->cmds[2], ft_strlen(pipex->cmds[2])) == 0)
-			&& ((ft_strncmp("\n", buf, ft_strlen(buf))) == 0))
-			break ;
-		printf("%s\n", buf);
-		if (ft_strncmp(buf, "\n", 1) != 0)
-			if (is_limiter(buf, pipex->cmds[2]) == 0)
-				break ;
-		write(pipex->infile_fd, buf, ft_strlen(buf));
-		free(buf);
-	}
-	free(buf);
-	close(pipex->infile_fd);
 }
 
 void	pipex_init(int ac, char **av, char **envp, t_pipex *pipex)

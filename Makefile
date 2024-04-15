@@ -9,9 +9,9 @@ SRCS		=	pipex	\
 
 SRCS_BONUS	=	pipex_cmds_bonus	\
 				pipex_exec_bonus	\
-				errors		\
-				utils		\
-
+				pipex_heredoc		\
+				errors				\
+				utils				\
 
 INCS		=	-I libft \
 				-I get_next_line \
@@ -20,7 +20,6 @@ SRC			= $(addsuffix .c, $(SRCS))
 OBJ			= $(addsuffix .o, $(SRCS))
 SRC_B		= $(addsuffix .c, $(SRCS_BONUS))
 OBJ_B		= $(addsuffix .o, $(SRCS_BONUS))
-
 
 all: $(NAME)
 
