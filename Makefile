@@ -3,15 +3,17 @@ CFLAGS		= -Wall -Werror -Wextra -g
 NAME		= pipex
 BNAME		= bonus_pipex
 
-SRCS		=	pipex	\
-				errors	\
-				utils	\
+SRCS		=	pipex		\
+				errors		\
+				utils		\
+				pipex_main	\
 
 SRCS_BONUS	=	pipex_cmds_bonus	\
 				pipex_exec_bonus	\
 				pipex_heredoc		\
 				errors				\
 				utils				\
+				pipex_cmds_heredoc	\
 
 INCS		=	-I libft \
 				-I get_next_line \

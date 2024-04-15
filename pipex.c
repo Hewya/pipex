@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:52 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/05 18:55:29 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/15 22:33:01 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	last_cmd(t_pipex *pipex)
 		exit(EXIT_FAILURE);
 	}
 	dup2(pipex->outfile_fd, STDOUT_FILENO);
+	close(pipex->outfile_fd);
 }
 
 void	first_cmd(t_pipex *pipex)
@@ -43,6 +44,7 @@ void	first_cmd(t_pipex *pipex)
 		exit(EXIT_FAILURE);
 	}
 	dup2(pipex->infile_fd, STDIN_FILENO);
+	close(pipex->infile_fd);
 }
 
 void	forkchild(t_pipex *pipex, int i)
@@ -98,7 +100,7 @@ void	ft_pipex(t_pipex *pipex)
 	}
 }
 
-int	main(int ac, char **av, char **envp)
+/*int	main(int ac, char **av, char **envp)
 {
 	t_pipex	pipex;
 
@@ -119,4 +121,4 @@ int	main(int ac, char **av, char **envp)
 	if (pipex.exit_code >= 256)
 		pipex.exit_code = 127;
 	return (pipex.exit_code);
-}
+}*/
