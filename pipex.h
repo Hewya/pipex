@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/15 22:33:03 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:23:53 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ void	pipex_init(int ac, char **av, char **envp, t_pipex *pipex);
 int		main(int ac, char **av, char **envp);
 
 /* PIPEX_HEREDOC */
-//bool	is_limiter(const char *buf, const char *delimiter);
 void	heredoc_init(t_pipex *pipex);
 void	ft_heredoc(t_pipex *pipex);
 void	heredoc_exec(t_pipex pipex, int i);
 
 /* PIPEX_CMDS_HEREDOC*/
-void	forkchild_two_commands_heredoc(t_pipex *pipex, int i);
-void	first_two_cmd_heredoc(t_pipex *pipex);
-void	last_two_cmd_heredoc(t_pipex *pipex);
+void	forkchild_two_cmds_heredoc(t_pipex *pipex, int i);
+void	first_two_cmds_heredoc(t_pipex *pipex);
+void	last_two_cmds_heredoc(t_pipex *pipex);
+void	ft_pipex_two_cmds_heredoc(t_pipex *pipex);
 
 #endif

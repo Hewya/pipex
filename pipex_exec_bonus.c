@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:59:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/15 22:08:16 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:45:37 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,36 +60,14 @@ int	main(int ac, char **av, char **envp)
 	t_pipex	pipex;
 
 	pipex_init(ac, av, envp, &pipex);
-	/*if (ac >= 5 && ft_strncmp(av[1], "here_doc", 8) == 0)
+	if (ac > 5 || (ac > 6 && (ft_strncmp(av[1], "here_doc", 8) == 0)))
 	{
-		ft_heredoc(&pipex);
-		pipex.nb_cmds = ac - 4;
-	}
-	if (ac >= 5 || (ac >= 5 && pipex.here_doc == 1))
-		ft_pipex_bonus(&pipex);
-	else if (ac <= 5 && pipex.here_doc == 0)
-		ft_printf("input error: ./bonus_pipex infile cmd1 ... cmdn outfile\n");
-	else if (ac <= 6 && pipex.here_doc == 1)
-	{
-		ft_printf("input error :");
-		ft_printf("./bonus_pipex here_doc LIMITER cmd1 ... cmdn outfile\n");
-	}
-	if (pipex.here_doc == 1 && pipex.infile_fd != -1)
-	{
-		close(pipex.infile_fd);
-		unlink("temp");
-	}
-	free_tab(pipex.paths);
-	return (pipex.exit_code);*/
-	if (ac >= 5)
-		if(ft_strncmp(av[1], "here_doc", 8) == 0)
-		{
+		if (ft_strncmp(av[1], "here_doc", 8) == 0)
 			heredoc_exec(pipex, ac);
-			printf("%s\n", pipex.infile);
-		}
 		else
 			ft_pipex_bonus(&pipex);
-	else 
+	}
+	else
 	{
 		ft_printf("input error: ./bonus_pipex infile cmd1 ... cmdn outfile\n");
 		ft_printf("input error :");
