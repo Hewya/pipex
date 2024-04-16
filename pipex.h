@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:09:47 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/16 11:23:53 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:07:18 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	forkchild_bonus(t_pipex *pipex, int i);
 void	wait_parent(t_pipex *pipex);
 
 /* BONUS_EXEC */
+void	command_fail_bonus(t_pipex *pipex);
 void	ft_pipex_bonus(t_pipex *pipex);
 void	pipex_init(int ac, char **av, char **envp, t_pipex *pipex);
 int		main(int ac, char **av, char **envp);

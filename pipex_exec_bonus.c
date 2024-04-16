@@ -6,11 +6,30 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:59:34 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/16 12:45:37 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:07:38 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	command_fail_bonus(t_pipex *pipex)
+{
+	send_error_msg("pipex : command not found\n");
+	free_tab(pipex->child_args);
+	free_tab(pipex->paths);
+	if (pipex->outfile_fd != -1)
+		close(pipex->outfile_fd);
+	if (pipex->infile_fd != -1)
+		close(pipex->infile_fd);
+	if (pipex->pipe_fd[0] != -1)
+	{
+		close(pipex->pipe_fd[0]);
+		close(pipex->pipe_fd[1]);
+	}
+	if (pipex->tmp_outfd != -1)
+		close(pipex->tmp_outfd);
+	exit(EXIT_FAILURE);
+}
 
 void	ft_pipex_bonus(t_pipex *pipex)
 {

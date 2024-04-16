@@ -6,7 +6,7 @@
 /*   By: gabarnou <gabarnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:54:15 by gabarnou          #+#    #+#             */
-/*   Updated: 2024/04/15 19:20:07 by gabarnou         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:08:42 by gabarnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	forkchild_bonus(t_pipex *pipex, int i)
 		if (!pipex->child_args)
 			parse_fail(pipex);
 		else if (!pipex->child_args[0])
-			command_fail(pipex);
+			command_fail_bonus(pipex);
 		if (i == 0)
 			last_cmd_bonus(pipex);
 		else if (i == (pipex->nb_cmds - 1))
@@ -83,7 +83,7 @@ void	forkchild_bonus(t_pipex *pipex, int i)
 		else if (i > 0 && i < (pipex->nb_cmds - 1))
 			middle_cmd_bonus(pipex);
 		ft_execve(pipex);
-		command_fail(pipex);
+		command_fail_bonus(pipex);
 	}
 	if (pipex->pid != 0)
 		if (pipex->tmp_outfd != -1)
